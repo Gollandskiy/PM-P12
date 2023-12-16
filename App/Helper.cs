@@ -8,6 +8,7 @@ namespace App
 {
     public class Helper
     {
+        // Обьединяет элементы в строку
         public string CombineUrl(params string[] parts)
         {
             if (parts is null) { throw new NullReferenceException("Parts is null"); }
@@ -41,8 +42,8 @@ namespace App
             return result.ToString();
 
         }
-        static char[] chars = { '!', '?', '.', ',' };
-        public String Ellipsis(String input, int len)
+        static char[] chars = { '!', '?', '.', ',' }; // Массив символов которые должны быть на конце строки
+        public String Ellipsis(String input, int len) // Обрезает строку, и дополняет ее конец тремя точками
         {
             if (input == null)
             {
@@ -61,6 +62,7 @@ namespace App
             // return "Hel"[..(len-3)]+"...";
             return input[..(len - 3)] + "...";
         }
+        // Добавляет точку в конце если нету
         public string Finalize(string input)
         {
             int len = input.Length;

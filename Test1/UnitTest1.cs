@@ -3,10 +3,10 @@ using App;
 namespace UnitTest
 {
     [TestClass]
-    public class HelperTest
+    public class HelperTest // Тестовый класс
     {
-        [TestMethod]
-        public void EllipsisTest()
+        [TestMethod] // Тестовые методы пошли
+        public void EllipsisTest() // Обрезает строку
         {
             Helper helper = new Helper();
             Assert.IsNotNull(helper, "new Helper() should not be null!");
@@ -15,7 +15,7 @@ namespace UnitTest
             Assert.AreEqual("Test...", helper.Ellipsis("Test string", 7));
         }
         [TestMethod]
-        public void EllipsisExceptionTest()
+        public void EllipsisExceptionTest() // Кидает исключения по определенным условиям
         {
             Helper helper = new();
             var ex =
@@ -38,7 +38,7 @@ namespace UnitTest
             Assert.IsTrue(ex3.Message.Contains("len"));
         }
         [TestMethod]
-        public void FinalizeTest()
+        public void FinalizeTest() // Дополняет строку, если в конце нету точки
         {
             Helper helper = new();
             Assert.IsNotNull(helper, "new Helper() should not be null");
@@ -47,7 +47,7 @@ namespace UnitTest
                 helper.Finalize("Hello, friend."));
         }
         [TestMethod]
-        public void CombineUrlTest()
+        public void CombineUrlTest() // Сочетает между собой строки в одну
         {
             Helper helper = new();
 
@@ -72,7 +72,7 @@ namespace UnitTest
             }
         }
         [TestMethod]
-        public void CombineUrlMultiTest()
+        public void CombineUrlMultiTest() // Делает практически то же самое что и CombineUrlTest
         {
             Helper helper = new();
             Dictionary<String[], String> testCases = new()
@@ -99,7 +99,7 @@ namespace UnitTest
             }
         }
         [TestMethod]
-        public void CombineUrlExceptionTest()
+        public void CombineUrlExceptionTest() // Кидает исключения с использованием CombineUrl
         {
             Helper helper = new();
             Assert.AreEqual("/home", helper.CombineUrl("/home", null!));
