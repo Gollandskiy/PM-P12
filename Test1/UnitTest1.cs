@@ -15,6 +15,29 @@ namespace UnitTest
             Assert.AreEqual("Test...", helper.Ellipsis("Test string", 7));
         }
         [TestMethod]
+        public void EllipsisExceptionTest()
+        {
+            Helper helper = new();
+            var ex =
+                Assert.ThrowsException<ArgumentNullException>(
+                    () => helper.Ellipsis(null!, 1)
+                );
+            Assert.IsTrue(
+                ex.Message.Contains("input"),
+                "Exception message should contain 'input' substring"
+            );
+
+            var ex2 = Assert.ThrowsException<ArgumentException>(
+                () => helper.Ellipsis("Hello, world", 1)
+            );
+            Assert.IsTrue(ex2.Message.Contains("len"));
+
+            var ex3 = Assert.ThrowsException<ArgumentOutOfRangeException>(
+                () => helper.Ellipsis("Hello, world", 100)
+            );
+            Assert.IsTrue(ex3.Message.Contains("len"));
+        }
+        [TestMethod]
         public void FinalizeTest()
         {
             Helper helper = new();

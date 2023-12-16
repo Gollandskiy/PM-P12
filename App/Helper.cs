@@ -8,7 +8,7 @@ namespace App
 {
     public class Helper
     {
-        public String CombineUrl(params String[] parts)
+        public string CombineUrl(params string[] parts)
         {
             if (parts is null) { throw new NullReferenceException("Parts is null"); }
             if (parts.Length == 0) { throw new ArgumentException("Parts is empty"); }
@@ -42,15 +42,30 @@ namespace App
 
         }
         static char[] chars = { '!', '?', '.', ',' };
-        public string Ellipsis(string input, int len)
+        public String Ellipsis(String input, int len)
         {
-            //return (len == 5) ? "He..." : "Hel...";
-            return input[..(len - 3)]+ "...";
+            if (input == null)
+            {
+                throw new ArgumentNullException("Null detected in parameter: " + nameof(input));
+            }
+            if (len < 3)
+            {
+                throw new ArgumentException("Argument 'len' could not be less than 3");
+            }
+            if (input.Length < len)
+            {
+                throw new ArgumentOutOfRangeException("Argument 'len' could not be greater than input length");
+            }
+            // return "He...";
+            // return (len == 5) ? "He..." : "Hel...";
+            // return "Hel"[..(len-3)]+"...";
+            return input[..(len - 3)] + "...";
         }
         public string Finalize(string input)
         {
             int len = input.Length;
             return (len > 0 && !chars.Contains(input[len - 1])) ? input += "." : input;
         }
+
     }
 }
