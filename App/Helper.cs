@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace App
@@ -41,6 +42,31 @@ namespace App
             }
             return result.ToString();
 
+        }
+        public bool ContainsAttributes(String html) // Регулярка
+        {
+            string pattern = @"<(\w+\s+[^=>])*(\w+=[^>]+)+>";
+            Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+            return regex.IsMatch(html);
+        }
+
+        // заменяет активные HTML символы на сущность
+        public string EscapeHtml(string html, Dictionary<string, string>? map = null)
+        {
+            if (html is null) { throw new ArgumentException("Argument 'html' is null"); }
+            if (html.Length == 0) { return html; }
+
+            Dictionary<string, string> htmlSpecSymbols = map ?? new()
+            {
+                { "&", "&amp;" },
+                { "<", "&lt;" },
+                { ">", "&gt;" }
+            };
+            foreach (var pair in htmlSpecSymbols)
+            {
+                html = html.Replace(pair.Key, pair.Value);
+            }
+            return html;
         }
         static char[] chars = { '!', '?', '.', ',' }; // Массив символов которые должны быть на конце строки
         public String Ellipsis(String input, int len) // Обрезает строку, и дополняет ее конец тремя точками
